@@ -1,6 +1,6 @@
 // App.jsx
+import Profile from "./components/Profile.jsx";
 import { useEffect, useState } from "react";
-import Profile from "./Profile";
 import "./App.css";
 
 function App() {
