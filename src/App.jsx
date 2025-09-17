@@ -1,35 +1,40 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+// App.jsx
+import { useEffect, useState } from "react";
+import Profile from "./Profile";
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    fetch("https://jsonplaceholder.typicode.com/users")
+      .then((response) => response.json())
+      .then((data) => {
+        // Додаємо role і avatarUrl до кожного юзера
+        const extendedUsers = data.slice(0, 7).map((user, index) => ({
+          name: user.name,
+          role: ["CEO", "Manager", "Designer", "Developer", "QA Engineer", "Analyst", "Intern"][index % 7],
+          avatarUrl: `https://i.pravatar.cc/150?img=${index + 1}`,
+        }));
+        setUsers(extendedUsers);
+      });
+  }, []);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="app">
+      <h1>User Profiles</h1>
+      <div className="profiles">
+        {users.map((user, index) => (
+          <Profile
+            key={index}
+            name={user.name}
+            role={user.role}
+            avatarUrl={user.avatarUrl}
+          />
+        ))}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </div>
+  );
 }
 
-export default App
+export default App;
