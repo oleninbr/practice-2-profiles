@@ -1,7 +1,7 @@
 // App.jsx
-import Profile from "./components/Profile.jsx";
 import { useEffect, useState } from "react";
 import "./App.css";
+import Profile from "./components/Profile.jsx";
 
 function App() {
   const [users, setUsers] = useState([]);
