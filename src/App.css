@@ -4,13 +4,13 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #43464d;
+  background-color: #000000;
   padding: 20px;
   box-sizing: border-box;
 }
 
 .app h1 {
-  color: #3e9536;
+  color: #ffffff;
   font-size: 2.5rem;
   margin-bottom: 30px;
   text-align: center;
