@@ -1,22 +1,23 @@
-import { useEffect, useState } from "react";
 import "./App.css";
 import Profile from "./components/Profile";
-import { fetchUsers } from "./services/users";
+import { useUsers } from "./hooks/useUsers";
 
 function App() {
-  const [users, setUsers] = useState([]);
-
-  useEffect(() => {
-    fetchUsers().then(setUsers);
-  }, []);
+  const { users, loading, error } = useUsers();
 
   return (
     <div className="app">
       <h1>User Profiles</h1>
+
+      {loading && <p>Loading...</p>}
+
+      {error && <p style={{ color: "red" }}>Error: {error}</p>}
+
       <div className="profiles">
-        {users.map((user, index) => (
+        {users.map((user) => (
+          // використовуємо user.id замість index для унікального ключа
           <Profile
-            key={index}
+            key={user.id}
             name={user.name}
             role={user.role}
             avatarUrl={user.avatarUrl}
